@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    subsetter:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: starcher91/database-subsetter
+        command: python /main.py
+        depends_on: 
+            - database
+        volumes:
+            - ./main.py:/main.py
+    database:
+        image: postgres:alpine
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
